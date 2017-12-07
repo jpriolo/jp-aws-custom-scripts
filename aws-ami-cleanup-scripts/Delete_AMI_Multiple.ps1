@@ -52,8 +52,8 @@ Import-Module AWSPowerShell
 
 # Declare variables
 $region = 'us-west-2'
-$owner = '901705342470'
-$server_type = '*linux-develop-v*'
+$owner = 'self'
+$server_type = '*linux*'
 
 # Create array of AMI's in us-west-2 with the server type:
 $AllAMINames = Get-EC2Image -Region $region -Owner $owner -Filter @{ Name='name'; Values=$server_type}   
@@ -88,4 +88,4 @@ foreach ($item in $mySnaps)
  }
 
 
-Read-Host -Prompt "--->>> COMPLETE! Log file written to 'C:\AWS_AMIs_Deleted.csv ...Press Enter to exit' <<<---"
+Write-Host "--->>> COMPLETE! Log file written to 'C:\AWS_AMIs_Deleted.csv ...Press Enter to exit' <<<---"
