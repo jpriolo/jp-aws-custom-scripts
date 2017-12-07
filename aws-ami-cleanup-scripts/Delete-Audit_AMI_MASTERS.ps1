@@ -55,7 +55,7 @@ echo "CREATING VARIABLES - PLEASE BE PATIENT..."
 
 # Declare variables
 $region = 'us-west-2'
-$owner = '901705342470'
+$owner = 'self'
 $server_type = '*master-v*'   # <--- modify
 $branch = 'master'            # <--- modify
 
@@ -69,19 +69,19 @@ $AllAMINames = Get-EC2Image -Region $region -Owner $owner -Filter @{ Name='name'
 # Find latest version of all masters
 
     # Get latest version of amazon-linux master
-    $amzn_lnx = $AllAMINames | where {$_.name -like "usfoods-amazon-linux-$branch-v*"}
+    $amzn_lnx = $AllAMINames | where {$_.name -like "*amazon-linux-$branch-v*"}
     $amzn_lnx_latest = $amzn_lnx | select name,creationdate,imageid | sort creationdate | select -Last 1
 
         # Get latest version of redhat-linux master
-        $rhel = $AllAMINames | where {$_.name -like "usfoods-redhat-linux-$branch-v*"}
+        $rhel = $AllAMINames | where {$_.name -like "*redhat-linux-$branch-v*"}
         $rhel_latest = $rhel | select name,creationdate,imageid | sort creationdate | select -Last 1
 
             # Get latest version of redhat-linux master v6x
-            $rhel_v6x = $AllAMINames | where {$_.name -like "usfoods-redhat-linux-v6x-$branch-v*"}
+            $rhel_v6x = $AllAMINames | where {$_.name -like "*redhat-linux-v6x-$branch-v*"}
             $rhel_v6x_latest = $rhel_v6x | select name,creationdate,imageid | sort creationdate | select -Last 1
 
                 # Get latest version of windows master
-                $win = $AllAMINames | where {$_.name -like "usfoods-windows-$branch-v*"}
+                $win = $AllAMINames | where {$_.name -like "*windows-$branch-v*"}
                 $win_latest = $win | select name,creationdate,imageid | sort creationdate | select -Last 1
 
 
@@ -177,4 +177,4 @@ foreach ($item in $mySnaps)
  }
 
 
-Read-Host -Prompt  "--->>> COMPLETE! Log file written to 'C:\AWS_AMIS__DELETED.csv ...Press Enter to exit' <<<---"
+Write-Host  "--->>> COMPLETE! Log file written to 'C:\AWS_AMIS__DELETED.csv ...Press Enter to exit' <<<---"
